@@ -328,7 +328,7 @@
     <include ref="LumiCal_o3_v02_05.xml"/>
 
     <comment> FCC-SEED barrel and adapted CLD endcaps </comment>
-    <include ref="Vertex_FCC-SEED_o1_v01.xml"/>
+    <include ref="Vertex_FCC-SEED_o1_v02.xml"/>
 
     <include ref="InnerTracker_o2_v08.xml"/>
     <include ref="OuterTracker_o2_v08.xml"/>
@@ -393,7 +393,7 @@
         <argument value="/VertexEndcap/" />
         <argument value="VertexEndcap_zmin" />
         <argument value="VertexBarrel_rmax+1*cm" />
-        <argument value="(VertexEndcap_rmax-VertexBarrel_rmax+1*cm)/(VertexEndcap_zmax-VertexEndcap_zmin)" />
+        <argument value="(Vertex_outer_radius-VTXD_rmin1+1*cm)/(VertexEndcap_zmax-VertexEndcap_zmin)" />
 
         <argument value="/VertexVerticalCable" />
         <argument value="0" />

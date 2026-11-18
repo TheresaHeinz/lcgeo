@@ -1,198 +1,200 @@
 <lccdd>
-    <comment> Vertex endcap for FCC-SEED, based on CLD endcaps </comment>
+    <comment> Vertex endcap for FCC-SEED</comment>
+
+    <define> <comment> Single OCTOPUS sensor </comment>
+        <constant name="VTXD_sens_rphi_sensitive" value="30.*mm"/> <comment>Chip length in z: Sensitive</comment>
+        <constant name="VTXD_sens_rphi_periphery" value="0.*mm"/> <comment>Chip length in z: Periphery</comment>
+        <constant name="VTXD_sens_rphi" value="VTXD_sens_rphi_sensitive+VTXD_sens_rphi_periphery"/> <comment>Chip length in z: Total</comment>
+        <constant name="VTXD_sens_r_sensitive" value="20.*mm"/> <comment>Chip length in r-phi: Sensitive</comment>
+        <constant name="VTXD_sens_r_periphery" value="2.*mm"/> <comment>Chip length in r-phi: Periphery</comment>
+        <constant name="VTXD_sens_r" value="VTXD_sens_r_sensitive+VTXD_sens_r_periphery"/> <comment>Chip length in r-phi: Total</comment>
+        <constant name="VTXD_sens_r_sens_spacing" value="0.2*mm"/> <comment>Distance between individual readout chips in rphi</comment>
+        <constant name="VTXD_sens_rphi_sens_spacing" value="0.2*mm"/> <comment>Distance between individual readout chips in rphi</comment>
+
+        <constant name="VTXD_insensitive_thickness_below"  value="5e-03*mm"/> <comment> Assume 5 µm metal interconnect</comment>
+        <constant name="VTXD_sensitive_thickness"          value="20e-03*mm"/> <comment> Assume 20 microns thick sensitive volume </comment>
+        <constant name="VTXD_insensitive_thickness_above"  value="10e-03*mm"/> <comment> Assume 10 insensitive thickness (substrate) </comment>
+        <constant name="VTXD_sensor_thickness"   value="VTXD_insensitive_thickness_below+VTXD_sensitive_thickness+VTXD_insensitive_thickness_above"/>
     
-    <define> <comment> CLD vertex detector-like disks </comment>
-        <comment> Parameters for both types of layout </comment>
-        <constant name="VTXD_Sensitive_Thickness"   value="5.000000000e-02*mm"/>
-        <constant name="VTXD_Support_Thickness"     value="28.000000000e-02*mm"/> <!-- +50% more material budget as in CLIC VTX -->
-        <constant name="VTXD_DoubleLayer_Gap"       value="2.0*mm"/>
-        <constant name="VTXD_rmax" value="Vertex_outer_radius-9.0*mm"/>
-        <constant name="VTXD_nModules" value="8"/>
-        <constant name="VTXD_ModuleThickness" value="1.22*mm"/>
-        <constant name="VTXD_Overlap" value="0*mm"/>
+        <comment> Common VTXOB and VTXD support and readout parameters </comment>
+        <constant name="VTXD_support_fleece_thickness"          value="20e-03*mm"/>
+        <constant name="VTXD_support_paperGraphite_thickness"   value="25e-03*mm"/>
+        <constant name="VTXD_support_carbonFiber_thickness"     value="120e-03*mm"/>
 
-        <comment> Double-hit disk layout </comment>
-        <constant name="VTXD_z1" value="VertexEndcap_zmin"/>
-        <constant name="VTXD_z3" value="VertexEndcap_zmax"/>
-        <constant name="VTXD_z2" value="VTXD_z1+(VTXD_z3-VTXD_z1)/2.0"/> <comment> Middle disk is in at the mid point between first and last disk </comment>
-	    <constant name="VTXD_rmin1" value="VTXD_z1 * tan(VertexDisksAcceptanceLimit)"/> <comment> tan(VertexDisksAcceptanceLimit) = r/z, so r = z * tan(VertexDisksAcceptanceLimit). Place the disks as close as possible to the beam pipe fulfilling the acceptance limit </comment>
-        <constant name="VTXD_rmin2" value="VTXD_z2 * tan(VertexDisksAcceptanceLimit)"/>
-        <constant name="VTXD_rmin3" value="VTXD_z3 * tan(VertexDisksAcceptanceLimit)"/>
+        <constant name="VTXD_coolingPipe_thickness"     value="0.0955*mm"/>
+        <constant name="VTXD_coolingPipe_width"         value="2.0*mm"/>
+        <constant name="VTXD_coolingWater_thickness"    value="2.0*mm"/>
 
-        <comment> Single-hit disk layout </comment>
-        <constant name="VTXD_singleHit_z1" value="VertexEndcap_zmin"/>
-        <constant name="VTXD_singleHit_z6" value="VertexEndcap_zmax"/>
-        <constant name="VTXD_singleHit_z2" value="VTXD_singleHit_z1+1.*(VTXD_singleHit_z6-VTXD_singleHit_z1)/5.0"/> <comment> Other disks are placed with even spacing betweeen first and last disk </comment>
-        <constant name="VTXD_singleHit_z3" value="VTXD_singleHit_z1+2.*(VTXD_singleHit_z6-VTXD_singleHit_z1)/5.0"/>
-        <constant name="VTXD_singleHit_z4" value="VTXD_singleHit_z1+3.*(VTXD_singleHit_z6-VTXD_singleHit_z1)/5.0"/>
-        <constant name="VTXD_singleHit_z5" value="VTXD_singleHit_z1+4.*(VTXD_singleHit_z6-VTXD_singleHit_z1)/5.0"/>
+        <constant name="VTXD_flex_width"                value="16.2*mm"/>
+        <constant name="VTXD_flex_Aluminium_thickness"  value="0.100*mm"/>
+        <constant name="VTXD_flex_Kapton_thickness"     value="0.300*mm"/>
+        <constant name="VTXD_flex_glue_thickness"       value="0.100*mm"/>
+        <constant name="VTXD_flex_thickness"            value="VTXD_flex_Aluminium_thickness+VTXD_flex_Kapton_thickness+VTXD_flex_glue_thickness"/>
 
-        <constant name="VTXD_singleHit_rmin1" value="VTXD_singleHit_z1 * tan(VertexDisksAcceptanceLimit)"/> <comment> tan(VertexDisksAcceptanceLimit) = r/z, so r = z * tan(VertexDisksAcceptanceLimit). Place the disks as close as possible to the beam pipe fulfilling the acceptance limit </comment>
-        <constant name="VTXD_singleHit_rmin2" value="VTXD_singleHit_z2 * tan(VertexDisksAcceptanceLimit)"/>
-        <constant name="VTXD_singleHit_rmin3" value="VTXD_singleHit_z3 * tan(VertexDisksAcceptanceLimit)"/>
-        <constant name="VTXD_singleHit_rmin4" value="VTXD_singleHit_z4 * tan(VertexDisksAcceptanceLimit)"/>
-        <constant name="VTXD_singleHit_rmin5" value="VTXD_singleHit_z5 * tan(VertexDisksAcceptanceLimit)"/>
-        <constant name="VTXD_singleHit_rmin6" value="VTXD_singleHit_z6 * tan(VertexDisksAcceptanceLimit)"/>
+        <constant name="VTXD_hybrid_thickness" value="0.4*mm"/> <comment> Hybrid PCB at the end of the stave </comment>
+        <constant name="VTXD_hybrid_length" value="12.1*mm"/>
+        <constant name="VTXD_hybrid_dx" value="0.1*mm"/>
     </define>
 
-    <define> <comment> Variables for the inclusion of other sub-detectors </comment>
-        <constant name="VertexEndcap_rmax" value="VTXD_rmax"/>
+    <define> <comment> Vertex disks (VTXD) layout parameters </comment>
+        <constant name="VTXD_z1" value="125*mm"/> <comment> VTXIB_SEED_half_length1 + 5 mm </comment>
+        <constant name="VTXD_z2" value="VTXD_z1+(VTXD_zmax-VTXD_z1)/2."/>
+        <constant name="VTXD_z3" value="VTXD_zmax"/>
+
+        <constant name="VTXD_dz1" value="2.0*mm"/> 
+        <constant name="VTXD_dz2" value="0.0*mm"/>
+        <constant name="VTXD_dz3" value="0.0*mm"/>
+
+        <constant name="VTXD_rmin1" value="CentralBeamPipe_rmax+BeamPipeWidth+(SeparatedBeamPipe_r_end-CentralBeamPipe_rmax-BeamPipeWidth)*(VTXD_z1-CentralBeamPipe_zmax)/SeparatedBeamPipe_z"/>
+        <constant name="VTXD_rmin2" value="140.0/2.0*mm"/>
+        <constant name="VTXD_rmin3" value="210.0/2.0*mm"/>
+
+        <constant name="VTXD_rmax1" value="VTXD_rmin1+2.5*cm"/>
+        <constant name="VTXD_rmax2" value="Vertex_outer_radius"/>
+        <constant name="VTXD_rmax3" value="Vertex_outer_radius"/>
+
+        <constant name="VTXD_phi1A" value="0.0*rad"/>
+        <constant name="VTXD_phi1B" value="pi/4.0*rad"/> <comment> face B of first disk is offset by 45 degrees </comment>
+        <constant name="VTXD_zoffset_faceB1" value="32.621*mm"/> <comment> face B has different position in z than face A </comment>
+        <constant name="VTXD_zoffset_faceB2" value="15.121*mm"/> <comment> face B has different position in z than face A </comment>
+        <constant name="VTXD_zoffset_faceB3" value="15.871*mm"/> <comment> face B has different position in z than face A </comment>
+
+        <constant name="VTXD_stave_dz" value="5.0*mm"/> <comment> Distance between front and back of stave (inner empty space) </comment>
+        <constant name="VTXDModOverlap" value="-13.0*mm"/>
+
+        <comment> VTXD support and readout properties </comment>
+        <constant name="VTXD_support_thickness"     value="VTXD_support_fleece_thickness+VTXD_support_carbonFiber_thickness+VTXD_support_paperGraphite_thickness"/>
+        <constant name="VTXD_coolingPipe_offset"    value="5.42*mm/2.0"/> 
+
+        <constant name="VTXD_terminalPart_length"   value="9.0*mm"/> <comment> Terminal part of VTXD, volume: Is between ~1700 and 4000 mm^3, depending on where on the stave. Let's assume 2500 mm^3. This is modelled by one volumes with thickness of 6.84 mm and length of 9 mm so that 6.84*9*40.6=2500 mm^3. In principle some of this material should be between the front and back of the stave, but in this simplified description it is just on the sides of the stave </comment>
+        <constant name="VTXD_terminal_thickness"    value="5.84*mm"/> 
+
+        <comment> Properties of VTXD global disk supports </comment>
+        <constant name="VTXD_support_thickness_disk1" value="3.3*mm"/>  <comment> Area of 1307*cm^2, with a thickness of 6 mm -> 784.2 cm^3. Use proxy volume with reduced thickness according to (VTXD_rmax1^2*pi-VTXD_rmin1^2*pi)*thickness =  784.2 cm^3 (VTXD_rmax1 = 27.5 cm), so 784/pi/(27.5^2-3.56^2) ~ 3.3 mm. Disk support is sandwich of 5% carbonFibre, 90% Rohacell and 5% carbonFibre </comment>
+        <constant name="VTXD_support_thickness_disk2" value="2.56*mm"/> <comment> Area of 1331*cm^2, with a thickness of 6 mm -> 798.6 cm^3. Use proxy volume with reduced thickness according to (VTXD_rmax3^2*pi-VTXD_rmin2^2*pi)*thickness =  798.6 cm^3 (VTXD_rmax2 = 32.25 cm), so 798.6/pi/(32.25^2-7^2) ~ 2.56 mm. Disk support is sandwich of 5% carbonFibre, 90% Rohacell and 5% carbonFibre </comment>
+        <constant name="VTXD_support_thickness_disk3" value="2.51*mm"/> <comment> Area of 1220*cm^2, with a thickness of 6 mm -> 732 cm^3. Use proxy volume with reduced thickness according to (VTXD_rmax3^2*pi-VTXD_rmin3^2*pi)*thickness =  732 cm^3 (VTXD_rmax3 = 32.25 cm), so 732/pi/(32.5^2-10.5^2) ~ 2.51 mm. Disk support is sandwich of 5% carbonFibre, 90% Rohacell and 5% carbonFibre </comment>
+        <constant name="VTXD_disk1_z" value="307.7*mm + 27.0*mm"/> <comment> Adding 27 mm so that disk support is after disk, to avoid overlaps. FIX when updated vertex disks are available </comment>
+        <constant name="VTXD_disk2_z" value="620.0*mm"/>
+        <constant name="VTXD_disk3_z" value="930.0*mm"/>
+        <constant name="VTXD_disk1_rmin" value="VTXD_rmin1+2.0*mm"/> <comment> Adding 2 mm so that disk support is not clashing with vertex envelope (related to fix on VTXD_disk1_z) </comment>
+        <constant name="VTXD_disk2_rmin" value="VTXD_rmin2"/>
+        <constant name="VTXD_disk3_rmin" value="VTXD_rmin3"/>
     </define>
 
-    <readouts> <comment>  Definition of the readout segmentation/definition </comment>
-        <readout name="VertexEndcapCollection"> 
-            <segmentation type="MultiSegmentation" key="layer">
-                <segmentation name="VTXDgrid" type="CartesianGridXY" key_min="0" key_max="5" grid_size_x="VTXD_pitch_r" grid_size_y="VTXD_pitch_phi"/>
-            </segmentation>
-            <id>${GlobalTrackerReadoutID},x:32:-16,y:-16</id>
-        </readout>  
-    </readouts>
+    <define> <comment> Number of modules for each ring for each disk </comment>
+        <constant name="VTXD_moduleOverlapFactor" value="1.05"/> <comment> Factor to increase the number of modules per ring for full hermeticity </comment>
+        <constant name="VTXD_disk1_ring1_nModules" value="ceil(2.*pi*(VTXD_disk1_rmin+VTXD_sens_r_sensitive)/VTXD_sens_rphi_sensitive * VTXD_moduleOverlapFactor)"/>
+    </define>
 
-    <!-- Vertex detector endcaps for FCC-SEED, based on CLD endcaps -->
     <detectors>
-        <detector id="DetID_VXD_Endcap" name="VertexEndcap" type="VertexEndcap_o1_v06" readout="VertexEndcapCollection" reflect="true" region="VertexEndcapRegion">
+        <detector id="DetID_VXD_Endcap" name="VertexEndcap" vis="VXDVis" type="VertexEndcap_detailed_o1_v03" readout="VertexEndcapCollection" reflect="true" region="VertexEndcapRegion">
             <envelope vis="VXDVis">
                 <shape type="Assembly"/>
             </envelope>
 
+            <comment>Vertex Detector Disks</comment>
+
             <type_flags type=" DetType_TRACKER + DetType_PIXEL + DetType_VERTEX + DetType_ENDCAP"/>
 
-            <comment> Double-hit disk module definition (unchanged from CLD) </comment>
+            <comment> Definition of our stave that is used to build the disks </comment>
+            <module name="VTXDModule">
+                <!-- <components name="flex_low_z" z_offset="0.0*mm">
+                    <component thickness="VTXD_flex_Aluminium_thickness"    width="VTXD_flex_width" z_offset="0.0*mm" material="Al" vis="VTXCableVis"/>
+                    <component thickness="VTXD_flex_Kapton_thickness"       width="VTXD_flex_width" z_offset="VTXD_flex_Aluminium_thickness" material="KaptonVtx" vis="VTXCableVis"/>
+                    <component thickness="VTXD_flex_glue_thickness"         width="VTXD_flex_width" z_offset="VTXD_flex_Aluminium_thickness+VTXD_flex_Kapton_thickness" material="GlueEcobond45" vis="VTXCableVis"/> <comment> Need to update glue definition! </comment>
+                </components> -->
 
-            <module name="SiVertexEndcapModule1" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin1 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin1) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
+                <sensor name="sensor" thickness="VTXD_sensor_thickness" material="Silicon">
+                    <component sensitive="True"  name="Pixel array" vis="VTXSensitiveVis" xmin="-VTXD_sens_r/2." xmax="VTXD_sens_r_sensitive/2." ymin="-VTXD_sens_rphi/2." ymax="+VTXD_sens_rphi/2." sensor_insensitive_thickness_below="VTXD_insensitive_thickness_below" thickness="VTXD_sensitive_thickness" sensor_insensitive_thickness_above="VTXD_insensitive_thickness_above" other_insensitive_thickness_below="0." other_insensitive_thickness_above="0."/>
+                    <component sensitive="False" name="Periphery"   vis="VTXPeripheryVis" xmin="VTXD_sens_r_sensitive/2." xmax="+VTXD_sens_r/2." ymin="-VTXD_sens_rphi/2" ymax="+VTXD_sens_rphi/2."/>
+                </sensor>
+
+<!--                <components name="support_low_z" z_offset="VTXD_flex_thickness+VTXD_sensor_thickness">
+                    <component thickness="VTXD_support_fleece_thickness"         width="VTXD_mod_z" z_offset="0.0*mm" material="CarbonFleece" vis="VTXSupportVis"/> 
+                    <component thickness="VTXD_support_carbonFiber_thickness"    width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness" material="CarbonFiberVtx" vis="VTXSupportVis"/>
+                    <component thickness="VTXD_support_paperGraphite_thickness"  width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness+VTXD_support_carbonFiber_thickness" material="CarbonFiberVtx" vis="VTXSupportVis"/> <comment> should be material="CarbonPaperGraphite", not implemented yet! </comment>
+                    <component thickness="VTXD_support_fleece_thickness"         width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness+VTXD_support_carbonFiber_thickness+VTXD_support_paperGraphite_thickness" material="CarbonFleece" vis="VTXSupportVis"/>
+                </components>
+
+                <components name="cooling_pipes" z_offset="VTXD_flex_thickness+VTXD_sensor_thickness+VTXD_stave_dz/2.0-VTXD_coolingPipe_thickness-VTXD_coolingWater_thickness/2.0">
+                    <component thickness="VTXD_coolingPipe_thickness"  width="VTXD_coolingPipe_width" offset="-VTXD_coolingPipe_offset" z_offset="0.0*mm" material="KaptonVtx" vis="VTXPipingVis"/> 
+                    <component thickness="VTXD_coolingWater_thickness" width="VTXD_coolingPipe_width" offset="-VTXD_coolingPipe_offset" z_offset="VTXD_coolingPipe_thickness" material="Water" vis="VTXWaterVis"/>
+                    <component thickness="VTXD_coolingPipe_thickness"  width="VTXD_coolingPipe_width" offset="-VTXD_coolingPipe_offset" z_offset="VTXD_coolingPipe_thickness+VTXD_coolingWater_thickness" material="KaptonVtx" vis="VTXPipingVis"/>
+
+                    <component thickness="VTXD_coolingPipe_thickness"  width="VTXD_coolingPipe_width" offset="VTXD_coolingPipe_offset" z_offset="0.0*mm" material="KaptonVtx" vis="VTXPipingVis"/> 
+                    <component thickness="VTXD_coolingWater_thickness" width="VTXD_coolingPipe_width" offset="VTXD_coolingPipe_offset" z_offset="VTXD_coolingPipe_thickness" material="Water" vis="VTXWaterVis"/>
+                    <component thickness="VTXD_coolingPipe_thickness"  width="VTXD_coolingPipe_width" offset="VTXD_coolingPipe_offset" z_offset="VTXD_coolingPipe_thickness+VTXD_coolingWater_thickness" material="KaptonVtx" vis="VTXPipingVis"/>
+                </components>
+
+                <components name="support_high_z" z_offset="VTXD_flex_thickness+VTXD_sensor_thickness+VTXD_stave_dz">
+                    <component thickness="VTXD_support_fleece_thickness"         width="VTXD_mod_z" z_offset="0.0*mm" material="CarbonFleece" vis="VTXSupportVis"/>
+                    <component thickness="VTXD_support_paperGraphite_thickness"  width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness" material="CarbonFiberVtx" vis="VTXSupportVis"/> <comment> should be material="CarbonPaperGraphite", not implemented yet! </comment>
+                    <component thickness="VTXD_support_carbonFiber_thickness"    width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness+VTXD_support_paperGraphite_thickness" material="CarbonFiberVtx" vis="VTXSupportVis"/>
+                    <component thickness="VTXD_support_fleece_thickness"         width="VTXD_mod_z" z_offset="VTXD_support_fleece_thickness+VTXD_support_paperGraphite_thickness+VTXD_support_carbonFiber_thickness" material="CarbonFleece" vis="VTXSupportVis"/>
+                </components>
+
+                <components name="flex_high_z" z_offset="VTXD_flex_thickness+2.0*(VTXD_sensor_thickness+VTXD_support_thickness)+VTXD_stave_dz">
+                    <component thickness="VTXD_flex_glue_thickness"         width="VTXD_flex_width" z_offset="0.0*mm" material="GlueEcobond45" vis="VTXCableVis"/> <comment> Need to update glue definition! </comment>
+                    <component thickness="VTXD_flex_Kapton_thickness"       width="VTXD_flex_width" z_offset="VTXD_flex_glue_thickness" material="KaptonVtx" vis="VTXCableVis"/>
+                    <component thickness="VTXD_flex_Aluminium_thickness"    width="VTXD_flex_width" z_offset="VTXD_flex_glue_thickness+VTXD_flex_Kapton_thickness" material="Al" vis="VTXCableVis"/>
+                </components>
+
+
+                <end_z name="hybrids" z_offset="VTXD_flex_thickness+VTXD_sensor_thickness">
+                    <component thickness="VTXD_hybrid_thickness" width="VTXD_mod_rphi" length="VTXD_hybrid_length" dx="VTXD_hybrid_dx" x="0.001*mm" z_offset="0.0*mm" material="PCB" vis="VTXHybridVis"/> <comment> Hybrid in front, only on one side (x larger than 0) </comment>
+                    <component thickness="VTXD_hybrid_thickness" width="VTXD_mod_rphi" length="VTXD_hybrid_length" dx="VTXD_hybrid_dx" x="0.001*mm" z_offset="VTXD_hybrid_thickness+VTXD_stave_dz-VTXD_hybrid_thickness" material="PCB" vis="VTXHybridVis"/> <comment> Hybrid in back, only on one side (x larger than 0) </comment>
+                </end_z>-->
             </module>
 
-            <module name="SiVertexEndcapModule2" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin1 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin1) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
+            <comment> Here we construct the disks, all disks use the same base stave (VTXDModule) with different numbers of modules and other properties </comment>
+            <layer id="0" z="VTXD_z1" nphi="VTXD_disk1_ring1_nModules" dz="VTXD_dz1" rmin="VTXD_rmin1" rmax="VTXD_rmin1+0.3*cm">
+                <stave nmodules="1" z_offset="0." step="0." r="0." phi0="0." module="VTXDModule"/>
+            </layer> 
+        </detector>
 
-            <module name="SiVertexEndcapModule3" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin2 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin2) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-            </module>
+        <comment> Disk support proxy volumes  </comment>
+        <detector name="VertexDisks_support" type="VertexBarrel_detailed_o1_v02" vis="VXDVis" id="-1" readout="VertexDummyCollection"  region="VertexEndcapRegion">
+            <type_flags type="DetType_SUPPORT"/>
+            <envelope vis="VXDVis">
+                <shape type="Assembly"/>
+            </envelope>
 
-            <module name="SiVertexEndcapModule4" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin2 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin2) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
+            <stave name="VTXD_support_disk1" r="VTXD_disk1_rmin" length="VTXD_support_thickness_disk1">
+                <end_z name="support" r="0.0" length="VTXD_support_thickness_disk1/2.">
+                    <component thickness="VTXD_rmax1-VTXD_disk1_rmin" width="2.*pi*VTXD_disk1_rmin" length="0.05*VTXD_support_thickness_disk1" isCurved="true" vis="VTXDiskSupportVis" material="CarbonFiberVtx" side="+1" dz="-VTXD_support_thickness_disk1+0."/>
+                    <component thickness="VTXD_rmax1-VTXD_disk1_rmin" width="2.*pi*VTXD_disk1_rmin" length="0.90*VTXD_support_thickness_disk1" isCurved="true" vis="VTXDiskSupportVis" material="RohacellVtx"    side="+1" dz="-VTXD_support_thickness_disk1+0.05*VTXD_support_thickness_disk1"/>
+                    <component thickness="VTXD_rmax1-VTXD_disk1_rmin" width="2.*pi*VTXD_disk1_rmin" length="0.05*VTXD_support_thickness_disk1" isCurved="true" vis="VTXDiskSupportVis" material="CarbonFiberVtx" side="+1" dz="-VTXD_support_thickness_disk1+0.05*VTXD_support_thickness_disk1+0.90*VTXD_support_thickness_disk1"/>
+                </end_z>
+            </stave>
 
-            <module name="SiVertexEndcapModule5" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin3 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin3) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-            </module>
-
-            <module name="SiVertexEndcapModule6" vis="SiVertexModuleVis">
-                <trd x1="VTXD_rmin3 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_rmin3) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
-
-            <comment> Single-hit disk module definition (adapted from CLD) </comment>
-            <module name="SiVertexSingleHitEndcapModule1" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin1 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin1) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-            </module>
-
-            <module name="SiVertexSingleHitEndcapModule2" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin2 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin2) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
-
-            <module name="SiVertexSingleHitEndcapModule3" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin3 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin3) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-            </module>
-
-            <module name="SiVertexSingleHitEndcapModule4" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin4 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin4) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
-
-            <module name="SiVertexSingleHitEndcapModule5" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin5 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin5) / 2" />
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-            </module>
-
-            <module name="SiVertexSingleHitEndcapModule6" vis="SiVertexModuleVis">
-                <trd x1="VTXD_singleHit_rmin6 * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" x2="VTXD_rmax * tan(pi/(VTXD_nModules))+VTXD_Overlap*sin(pi/VTXD_nModules)" z="(VTXD_rmax - VTXD_singleHit_rmin6) / 2" />
-                <module_component thickness="VTXD_DoubleLayer_Gap/2.0"  material="Air" vis="SiVertexAir" />
-                <module_component thickness="VTXD_Sensitive_Thickness"  material="Silicon" sensitive="true" vis="SiVertexSensitiveVis"/>
-                <module_component thickness="VTXD_Support_Thickness"  material="Silicon" vis="SiVertexPassiveVis"/>
-            </module>
-
-            <comment> Double-hit disks (CLD design) </comment>
-            <!-- <layer id="0"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin1) / 2" zstart="VTXD_z1 - VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule1"/>
-            </layer>
-            <layer id="1"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin1) / 2" zstart="VTXD_z1+VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule2"/>
-            </layer>
-            <layer id="2"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin2) / 2" zstart="VTXD_z2-VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule3"/>
-            </layer>
-            <layer id="3"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin2) / 2" zstart="VTXD_z2+VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule4"/>
-            </layer>
-            <layer id="4"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin3) / 2" zstart="VTXD_z3-VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule5"/>
-            </layer>
-            <layer id="5"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_rmin3) / 2" zstart="VTXD_z3+VTXD_ModuleThickness/2.0" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexEndcapModule6"/>
-            </layer> -->
-
-            <comment> Single-hit disk (adapted from CLD design) </comment>
-            <layer id="0"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin1) / 2" zstart="VTXD_singleHit_z1" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule1"/>
-            </layer>
-            <layer id="1"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin2) / 2" zstart="VTXD_singleHit_z2" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule2"/>
-            </layer>
-            <layer id="2"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin3) / 2" zstart="VTXD_singleHit_z3" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule3"/>
-            </layer>
-            <layer id="3"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin4) / 2" zstart="VTXD_singleHit_z4" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule4"/>
-            </layer>
-            <layer id="4"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin5) / 2" zstart="VTXD_singleHit_z5" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule5"/>
-            </layer>
-            <layer id="5"  vis="SiVertexLayerVis">
-                <ring r="(VTXD_rmax + VTXD_singleHit_rmin6) / 2" zstart="VTXD_singleHit_z6" nmodules="(int) VTXD_nModules" dz="0*cm" phi0="pi/(VTXD_nModules)" module="SiVertexSingleHitEndcapModule6"/>
-            </layer>
+            <comment> Disk supports for layer 1 </comment>
+            <layer nLadders="1" r="VTXD_disk1_rmin" id="0" name="VTXD_support_disk1" nmodules="1" motherVolThickness="VTXD_rmax1-VTXD_disk1_rmin" side="+1" z_offset="+VTXD_disk1_z"/>
+            <layer nLadders="1" r="VTXD_disk1_rmin" id="1" name="VTXD_support_disk1" nmodules="1" motherVolThickness="VTXD_rmax1-VTXD_disk1_rmin" side="-1" z_offset="-VTXD_disk1_z"/>
         </detector>
     </detectors>
 
+    <readouts> <comment>  Definition of the readout segmentation/definition </comment>
+        <readout name="VertexEndcapCollection"> 
+            <segmentation type="MultiSegmentation" key="layer">
+                <segmentation name="VTXDgrid" type="CartesianGridXY" key_min="0" key_max="0" grid_size_x="VTXD_pitch_r" grid_size_y="VTXD_pitch_phi"/> 
+                <segmentation name="VTXDgrid" type="CartesianGridXY" key_min="1" key_max="1" grid_size_x="VTXD_pitch_r" grid_size_y="VTXD_pitch_phi"/>
+                <segmentation name="VTXDgrid" type="CartesianGridXY" key_min="2" key_max="2" grid_size_x="VTXD_pitch_r" grid_size_y="VTXD_pitch_phi"/>
+            </segmentation>
+            <id>${GlobalTrackerReadoutID},x:32:-16,y:-16</id>
+        </readout>  
+        <readout name="VertexDummyCollection">    <comment> For disk supports, should not have any hits but better safe than sorry </comment>
+            <id>${GlobalTrackerReadoutID}</id>
+        </readout>  
+    </readouts>    
+
+    <comment> Plugin to define the sensitive surfaces of the disks </comment>
     <plugins>
         <plugin name="DD4hep_GenericSurfaceInstallerPlugin">
-            <argument value="VertexEndcap"/>
+            <argument value="VertexEndcap"/> 
             <argument value="dimension=2"/>
-            <argument value="u_x=-1."/>
-            <argument value="v_z=1."/>
-            <argument value="n_y=1."/>
+            <argument value="u_y=1."/> <comment> The better measurement direction should be in u (by convention), which we want to be in phi for the track momentum measurement. In local sensor coordinates, this is in the y direction (along the vertex disk stave) </comment>
+            <argument value="v_x=1."/> <comment> The worse measurement direction should be in v (by convention), which we want to be in r. In local sensor coordinates, this is in the x direction (across the vertex disk stave) </comment>
+            <argument value="n_z=-1."/>
         </plugin>
     </plugins>
 </lccdd>
