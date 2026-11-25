@@ -69,8 +69,11 @@
     <comment> IDEA outer vertex detector based on IDEA engineering design (INFN Pisa) using ATLASPix3 </comment>
     <include ref="../../../IDEA/compact/IDEA_o1_v04/VertexOuterBarrel_o1_v04.xml"/>
 
-    <comment> IDEA vertex disks based on IDEA engineering design (INFN Pisa) using ATLASPix3 </comment>
-    <include ref="../../../IDEA/compact/IDEA_o1_v04/VertexDisks_o1_v04.xml"/>
+    <comment> Option 1: IDEA vertex disks based on IDEA engineering design (INFN Pisa) using ATLASPix3 </comment>
+    <!-- <include ref="../../../IDEA/compact/IDEA_o1_v04/VertexDisks_o1_v04.xml"/> -->
+
+    <comment> Option 2: ALLEGRO vertex disks based on IDEA engineering design (INFN Pisa) using OCTOPUS </comment>
+    <include ref="../../../ALLEGRO/compact/ALLEGRO_o1_v05/VertexDisks_o1_v05.xml"/>
 
     <readouts> <comment>  Definition of the readout segmentation/definition </comment>
         <readout name="VertexBarrelCollection"> 
